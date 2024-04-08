@@ -1,0 +1,33 @@
+{
+  "name": "doinstruct-rest-api",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "sst dev",
+    "build": "sst build",
+    "deploy": "sst deploy",
+    "remove": "sst remove",
+    "console": "sst console",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write \"{packages,shared,stack}/**/*.ts\""
+  },
+  "devDependencies": {
+    "@tsconfig/node18": "^18.2.4",
+    "aws-cdk-lib": "2.132.1",
+    "constructs": "10.3.0",
+    "prettier": "^3.2.5",
+    "sst": "^2.41.4",
+    "typescript": "^5.4.4"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
+    "kysely": "^0.27.3",
+    "kysely-data-api": "^0.2.1",
+    "libphonenumber-js": "^1.10.60"
+  }
+}
