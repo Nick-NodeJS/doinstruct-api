@@ -1,5 +1,7 @@
 import { Kysely } from "kysely";
 
+//TODO: investigate how to run migrations manualy(seems sst-web-comsole issue)
+
 /**
  * @param db {Kysely<any>}
  */
@@ -16,7 +18,7 @@ export async function up(db) {
     await db.schema
     .createTable("insertError")
     .addColumn('id', 'integer', (col) => col.autoIncrement().primaryKey())
-    .addColumn("employee_number", "varchar", (col) => col.notNull().unique())
+    .addColumn("number", "varchar", (col) => col.notNull().unique())
     .addColumn("error", "varchar", (col) => col.notNull())
     .execute();
 }

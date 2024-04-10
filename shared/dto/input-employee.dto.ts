@@ -1,6 +1,7 @@
 import { Transform } from "class-transformer";
-import { IsOptional, IsString, validate } from "class-validator";
+import { IsOptional, validate } from "class-validator";
 import { parsePhoneNumber } from "libphonenumber-js";
+import { ERRORS } from "../enum/error.enum";
 
 export class InputEmployee {
   number!: string;
@@ -21,7 +22,7 @@ export class InputEmployee {
       if (phoneNumber.isValid()) {
         this.phone = phoneNumber.number;
       } else {
-        throw new Error(`Bad phone string ${this.phone}`);
+        throw new Error(ERRORS.BAD_EMPLOYEE_PHONE + " " + this.phone);
       }
     }
     return this;

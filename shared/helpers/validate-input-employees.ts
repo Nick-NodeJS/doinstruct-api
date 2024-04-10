@@ -1,12 +1,12 @@
-import { InputEmployee } from "../dto/input-employee.dto";
+import { InputEmployee } from "../dto";
 import { plainToClass } from "class-transformer";
-import { Employee, InsertEmployeeError } from "../interfaces";
+import { Employee, InsertError } from "../interfaces";
 
 export const validateInputEmployees = async (
   inputs: any[],
-): Promise<[Employee[], InsertEmployeeError[]]> => {
+): Promise<[Employee[], InsertError[]]> => {
   const validatedEmployees: Employee[] = [];
-  const invalidEmployees: InsertEmployeeError[] = [];
+  const invalidEmployees: InsertError[] = [];
 
   await Promise.all(
     inputs.map(async (obj: InputEmployee) => {

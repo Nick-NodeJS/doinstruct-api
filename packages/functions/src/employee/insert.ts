@@ -1,10 +1,10 @@
 import { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { CamelCasePlugin, Kysely } from "kysely";
-import { Database, InsertError } from "../../../../shared/interfaces";
+import { Database } from "../../../../shared/interfaces";
 import { DataApiDialect } from "kysely-data-api";
 import { RDSData } from "@aws-sdk/client-rds-data";
 import { RDS } from "sst/node/rds";
-import { validateInputEmployees } from "../../../../shared/helpers/validate-input-employees";
+import { insertEmployeeChunk } from "../../../../shared/helpers";
 
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {
   if (!event.body) {
@@ -14,8 +14,10 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     };
   }
 
+  // Parse input Employee records
   const employeesToInsert = JSON.parse(event.body);
 
+  // Get DB
   const db = new Kysely<Database>({
     dialect: new DataApiDialect({
       mode: "postgres",
@@ -29,8 +31,10 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     plugins: [new CamelCasePlugin()],
   });
 
+  // Process input Employee records via spliting them by chunks
+
   // TODO: should be configured via settings
-  const insertChunkSize = 1000;
+  const insertChunkSize = 7;
 
   const promises = [];
 
@@ -49,46 +53,22 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
   const result = (await Promise.all(promises)).reduce(
     (acc, curr) => {
       acc.insertedEmployee = acc.insertedEmployee.concat(curr.insertedEmployee);
-      acc.failedEmployee = acc.failedEmployee.concat(curr.failedEmployee);
+      acc.failValidationEmployee = acc.failValidationEmployee.concat(
+        curr.failValidationEmployee,
+      );
       return acc;
     },
-    { insertedEmployee: [], failedEmployee: [] },
+    { insertedEmployee: [], failValidationEmployee: [] },
   );
 
   return {
     statusCode: 200,
+    headers: {
+      "content-type": "application/json",
+    },
     body: JSON.stringify({
       inserted: result.insertedEmployee.length,
-      fail: result.failedEmployee.length,
+      fail: result.failValidationEmployee.length,
     }),
   };
-};
-
-const insertEmployeeChunk = async (
-  db: Kysely<Database>,
-  data: any,
-): Promise<{
-  insertedEmployee: { number: string }[];
-  failedEmployee: InsertError[];
-}> => {
-  const [employeeToInsert, failValidationEmployee] =
-    await validateInputEmployees(data);
-
-  // TODO: investigate if it returns the exact employee insert error
-  const insertedEmployee = await db
-    .insertInto("employee")
-    .values(employeeToInsert)
-    .returning(["employee.number"])
-    .execute();
-
-  const failOnInsertEmployee = employeeToInsert
-    .filter(({ number }) => !insertedEmployee.find((e) => e.number == number))
-    .map(({ number }) => ({ number, error: "DB insert error" }));
-
-  const failedEmployee = [...failValidationEmployee, ...failOnInsertEmployee];
-
-  //TODO: handle insertError result
-  const _ = await db.insertInto("insertError").values(failedEmployee).execute();
-
-  return { insertedEmployee, failedEmployee };
 };

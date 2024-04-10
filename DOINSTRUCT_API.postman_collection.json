@@ -1,0 +1,75 @@
+{
+	"info": {
+		"_postman_id": "95fc048e-0335-4f05-a583-80a8a816dca5",
+		"name": "DOINSTRUCT_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7079211"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n    \"number\": \"111\",\n    \"firstName\": \"FirstName\",\n    \"lastName\": \"LastName\",\n    \"phone\": \"+49034\"\n}, {\n    \"number\": \"333\",\n    \"firstName\": \"FirstName\",\n    \"lastName\": \"LastName\",\n    \"phone\": \"+490342\"\n},{\n    \"number\": \"222\",\n    \"firstName\": \"FirstName\",\n    \"lastName\": \"LastName\"\n},{\n    \"number\": \"444\",\n    \"firstName\": \"FirstName\",\n    \"lastName\": \"LastName\",\n    \"phone\": \"+491748711160\"\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://irobrw4u08.execute-api.us-east-1.amazonaws.com/employee",
+					"protocol": "https",
+					"host": [
+						"irobrw4u08",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request Copy",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\n    \"number\": \"111\",\n    \"firstName\": \"FirstName\",\n    \"lastName\": \"LastName\",\n    \"phone\": \"+49034\"\n}, {\n    \"number\": \"333\",\n    \"firstName\": \"FirstName\",\n    \"lastName\": \"LastName\",\n    \"phone\": \"+490342\"\n},{\n    \"number\": \"222\",\n    \"firstName\": \"FirstName\",\n    \"lastName\": \"LastName\"\n},{\n    \"number\": \"444\",\n    \"firstName\": \"FirstName\",\n    \"lastName\": \"LastName\",\n    \"phone\": \"+491748711160\"\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://irobrw4u08.execute-api.us-east-1.amazonaws.com/report",
+					"protocol": "https",
+					"host": [
+						"irobrw4u08",
+						"execute-api",
+						"us-east-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"report"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

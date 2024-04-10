@@ -4,7 +4,7 @@ import { Database } from "../../../../shared/interfaces";
 import { DataApiDialect } from "kysely-data-api";
 import { RDSData } from "@aws-sdk/client-rds-data";
 import { RDS } from "sst/node/rds";
-import { Tables } from "../../../../shared/enum/table.enum";
+import { Tables } from "../../../../shared/enum";
 
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {
   //TODO: implement errors pagination
@@ -38,6 +38,9 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 
   return {
     statusCode: 200,
+    headers: {
+      "content-type": "application/json",
+    },
     body: JSON.stringify({
       insertedEmployees,
       errors,

@@ -5,7 +5,7 @@ export default {
   config(_input) {
     return {
       name: "doinstruct-rest-api",
-      region: "eu-central-1",
+      region: "us-east-1",
     };
   },
   stacks(app) {
