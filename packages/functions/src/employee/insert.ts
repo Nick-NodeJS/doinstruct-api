@@ -33,8 +33,8 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
 
   // Process input Employee records via spliting them by chunks
 
-  // TODO: should be configured via settings
-  const insertChunkSize = 7;
+  // TODO: should be configured via settings or config
+  const insertChunkSize = 100;
 
   const promises = [];
 
