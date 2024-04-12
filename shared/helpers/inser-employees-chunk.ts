@@ -1,5 +1,5 @@
 import { Kysely } from "kysely";
-import { Database, InsertResult } from "../interfaces";
+import { Database, InsertResult } from "../type";
 import { validateInputEmployees } from "./validate-input-employees";
 import { Tables, ERRORS } from "../enum";
 

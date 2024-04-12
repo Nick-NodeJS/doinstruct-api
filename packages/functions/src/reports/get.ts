@@ -1,10 +1,10 @@
 import { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { CamelCasePlugin, Kysely } from "kysely";
-import { Database } from "../../../../shared/interfaces";
+import { Database } from "@shared/type";
 import { DataApiDialect } from "kysely-data-api";
 import { RDSData } from "@aws-sdk/client-rds-data";
 import { RDS } from "sst/node/rds";
-import { Tables } from "../../../../shared/enum";
+import { Tables } from "@shared/enum";
 
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {
   //TODO: implement errors pagination

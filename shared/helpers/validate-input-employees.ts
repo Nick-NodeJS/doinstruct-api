@@ -1,6 +1,6 @@
 import { InputEmployee } from "../dto";
 import { plainToClass } from "class-transformer";
-import { Employee, InsertError } from "../interfaces";
+import { Employee, InsertError } from "../type";
 
 export const validateInputEmployees = async (
   inputs: any[],

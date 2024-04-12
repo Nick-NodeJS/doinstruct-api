@@ -5,7 +5,8 @@
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@doinstruct-rest-api/core/*": ["../core/src/*"]
+      "@doinstruct-rest-api/core/*": ["../core/src/*"],
+      "@shared/*": ["../../shared/*"]
     }
   }
 }
